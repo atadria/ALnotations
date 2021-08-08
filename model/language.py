@@ -1,8 +1,8 @@
 import spacy
 
 MODELS_DICT = {
-    'pl': 'pl_core_news_lg',
-    'en': 'en_core_web_trf'
+    'pl': 'pl_core_news_md',
+    'en': 'en_core_web_md'
 }
 
 
