@@ -1,0 +1,10 @@
+*.zip
+*.pyc
+*.egg-info
+.cache
+.idea
+.eggs
+__pycache__
+build
+dist
+venv*
