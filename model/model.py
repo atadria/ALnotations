@@ -18,17 +18,24 @@ class NERModel(object):
         cls.nlp = spacy.load(model_path)
         cls.language = cls.nlp.lang
 
+    @staticmethod
+    def get_ents_from_doc(doc):
+        entities = []
+        for ent in doc.ents:
+            entities.append([ent.start, ent.end, ent.label_])
+        return entities
+
     def update(self, entities, text):
         annotations = {'entities': entities}
         example = Example.from_dict(self.nlp.make_doc(text), annotations)
         self.nlp.update([example])
 
-    def predict(self, text):
+    def predict_ents(self, text):
         doc = self.nlp(text)
-        entities = []
-        for ent in doc.ents:
-            entities.append([ent.start, ent.end, ent.label_])
-        return entities
+        return self.get_ents_from_doc(doc)
+
+    def process(self, text):
+        return self.nlp(text)
 
     def to_disk(self, path):
         self.nlp.to_disk(path)
