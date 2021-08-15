@@ -1,3 +1,5 @@
+dash
+dash_html_components
 spacy>=3.1.0,<3.2.0
-https://github.com/explosion/spacy-models/releases/download/pl_core_news_lg-3.1.0/pl_core_news_lg-3.1.0.tar.gz
-https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.1.0/en_core_web_sm-3.1.0.tar.gz#egg=en_core_web_trf
+https://github.com/explosion/spacy-models/releases/download/pl_core_news_md-3.1.0/pl_core_news_md-3.1.0.tar.gz
+https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.1.0/en_core_web_md-3.1.0.tar.gz
