@@ -1,9 +1,12 @@
 import dash
 import dash_html_components as html
+import dash_core_components as dcc
 from spacy.displacy.render import DEFAULT_LABEL_COLORS
 
 from model.model import NERModel
 
+MODEL_LABELS = [{'label': 'Polish', 'value': 'pl'},
+                {'label': 'English', 'value': 'en'}]
 
 # Initialize the application
 app = dash.Dash(__name__)
@@ -52,14 +55,29 @@ def render(doc):
     return children
 
 
-text = 'David Bowie moved to the US in 1974, initially staying in New York City before settling in Los Angeles.'
 nlp_model = NERModel('en')
+
+
+@app.callback(
+    dash.dependencies.Output('dd-output-container', 'children'),
+    [dash.dependencies.Input('model-selection-dropdown', 'value')])
+def update_output(value):
+    return 'Selected language {}'.format(value)
+
+
+model_selection = dcc.Dropdown(id='model-selection-dropdown',
+                               options=MODEL_LABELS,
+                               value='en')
+
+model_selection_output = html.Div(id='dd-output-container')
+
+text = 'David Bowie moved to the US in 1974, initially staying in New York City before settling in Los Angeles.'
 doc = nlp_model.process(text)
 
-# define de app
-app.layout = html.Div(
-    children=render(doc)
-)
+# define the app
+app.layout = html.Div([model_selection,
+                       model_selection_output,
+                       *render(doc)])
 
 # Run the app
 if __name__ == '__main__':
