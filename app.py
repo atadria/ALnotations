@@ -16,7 +16,7 @@ def process():
         language = request.form['languageoption']
         rawtext = request.form['rawtext']
         nlp = NERModel(language)
-        results = nlp.predict(rawtext)
+        results = [(ent.label_, ent.text) for ent in nlp.predict(rawtext)]
         num_of_results = len(results)
 
     return render_template("index.html", results=results, num_of_results=num_of_results)

@@ -19,16 +19,16 @@ class NERModel(object):
         cls.language = cls.nlp.lang
 
     def update(self, entities, text):
-        annotations = {'entities': entities}
+        ents = []
+        for ent in entities:
+            ents.append([ent.start, ent.end, ent.label_])
+        annotations = {'entities': ents}
         example = Example.from_dict(self.nlp.make_doc(text), annotations)
         self.nlp.update([example])
 
     def predict(self, text):
         doc = self.nlp(text)
-        entities = []
-        for ent in doc.ents:
-            entities.append([ent.start, ent.end, ent.label_])
-        return entities
+        return doc.ents
 
     def to_disk(self, path):
         self.nlp.to_disk(path)
